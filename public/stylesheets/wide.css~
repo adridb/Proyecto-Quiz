@@ -3,7 +3,7 @@ body { background: #999; }
 #page   { background: #eee;}
 
 #page:after { content: "Wide Layout"; }
-.imagen{width: 400px; height:400px;}
+.imagen{width: 40px: height:70px;}
 
 nav       { float: left; width: 15%;}
 

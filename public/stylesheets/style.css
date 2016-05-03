@@ -3,6 +3,7 @@ body {font: 16px Georgia, serif; color: white;}
 .page {margin: 2% auto; color: white; }
 .main {border: 1px solid #999; padding: 1%; margin-bottom: 1px;
        color: black; background: #eee;}
+.imagen{width: 400px; height:400px;}
 a {  color: #00B7FF;}
 section > div {padding: 20px;}
 header {text-align: center;}
