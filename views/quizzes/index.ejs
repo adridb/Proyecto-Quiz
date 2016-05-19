@@ -1,3 +1,20 @@
+<form method="get" action="/quizzes">
+    <p>Buscador de preguntas</p>
+    <input type="text" name="search" value="" placeholder="Texto a buscar"></input>
+    <input type="submit" value="Comprobar"></input>
+    </form><br>
+     <p> La búsqueda <strong> <%= search %> </strong> 
+	 tiene los siguientes resultados</p>
+<table>
+<% for (var i in res_b){ %>
+  <tr>
+    <td>
+        <a href="/quizzes/<%=res_b[i].id %>"><%= res_b[i].question %></a>
+        </td>
+     </tr> 
+  <% } %>
+</table>
+
 <table>
 <% for (var i in quizzes){ %>
   <tr>

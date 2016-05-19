@@ -17,10 +17,34 @@ exports.load = function(req, res, next, quizId) {
 
 // GET /quizzes
 exports.index = function(req, res, next) {
-	models.Quiz.findAll()
+	var search = req.query.search || '';
+	if( search === ""){
+		var res_b = "";
+models.Quiz.findAll()
 		.then(function(quizzes) {
-			res.render('quizzes/index.ejs', { quizzes: quizzes});
+
+			res.render('quizzes/index.ejs', { quizzes: quizzes,
+				                               search : search,
+				                               res_b : res_b
+
+			                                   });
 		}).catch(function(error) {next(error);});
+
+
+
+	}else{
+	
+	
+	models.Quiz.findAll({where: {question: {$like: "%"+search+"%"}}})
+		.then(function(res_b) {
+             var quizzes = "";
+			res.render('quizzes/index.ejs', {quizzes: quizzes,
+				                               search : search,
+				                               res_b : res_b
+			                                   });
+		}).catch(function(error) {next(error);});
+	}
+		
 };
 
 // GET /quizzes/:id
@@ -37,3 +61,5 @@ exports.check = function(req,res,next){
 	res.render('quizzes/result',{quiz : req.quiz, result: result, answer: answer});
         	
 };
+
+
