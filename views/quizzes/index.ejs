@@ -3,17 +3,7 @@
     <input type="text" name="search" value="" placeholder="Texto a buscar"></input>
     <input type="submit" value="Comprobar"></input>
     </form><br>
-     <p> La búsqueda <strong> <%= search %> </strong> 
-	 tiene los siguientes resultados</p>
-<table>
-<% for (var i in res_b){ %>
-  <tr>
-    <td>
-        <a href="/quizzes/<%=res_b[i].id %>"><%= res_b[i].question %></a>
-        </td>
-     </tr> 
-  <% } %>
-</table>
+     
 
 <table>
 <% for (var i in quizzes){ %>
@@ -24,3 +14,4 @@
      </tr> 
   <% } %>
 </table>
+<a href="/quizzes/new"><button type="button"> Crear pregunta</button></a>
