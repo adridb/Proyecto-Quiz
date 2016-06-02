@@ -18,6 +18,9 @@ router.post('/quizzes',                  quizController.create);
 // Edicion de preguntas
 router.get('/quizzes/:quizId(\\d+)/edit',quizController.edit);
 router.put('/quizzes/:quizId(\\d+)',    quizController.update);
+//borrado
+router.delete('/quizzes/:quizId(\\d+)',    quizController.destroy);
+
 
 router.get('/author', function(req, res, next) {
   res.render('author');
