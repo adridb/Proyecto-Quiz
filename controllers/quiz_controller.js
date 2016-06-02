@@ -50,7 +50,7 @@ exports.new = function(req,res,next){
             res.render('quizzes/new',{quiz:quiz});
 			
 };
-// GET /quizzes/create
+// POST /quizzes/create
 exports.create = function(req,res,next){
 			var quiz = models.Quiz.build({question: req.body.quiz.question, answer: req.body.quiz.answer});
             quiz.save({fields:["question" , "answer"]})
