@@ -25,6 +25,8 @@ var sequelize = new Sequelize(url,
 var Quiz = sequelize.import(path.join(__dirname,'quiz'));
 // definicion de comment.js
 var Comment = sequelize.import(path.join(__dirname,'comment'));
+//definicion tabla uisuarios
+var User = sequelize.import(path.join(__dirname,'user'));
 //relacion entre modelos
 Comment.belongsTo(Quiz);
 Quiz.hasMany(Comment);
@@ -32,5 +34,5 @@ Quiz.hasMany(Comment);
 
  exports.Quiz = Quiz; // Exportar definición de la tabla Quiz
  exports.Comment = Comment;
-   
+ exports.User = User;
 
