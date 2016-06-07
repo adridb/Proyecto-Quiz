@@ -9,9 +9,10 @@ var sessionController = require('../controllers/session_controller');
 router.get('/', function(req, res, next) {
   res.render('index');
 });
-// autoload de rutas que usen :quizId
+// autoload de parámetros
 router.param("quizId", quizController.load);
 router.param("userId", userController.load);
+router.param("commentId",commentController.load);
 // Definición de rutas de /quizzes
 router.get('/quizzes',                  quizController.index);
 router.get('/quizzes/:quizId(\\d+)',    quizController.show);
@@ -26,6 +27,7 @@ router.delete('/quizzes/:quizId(\\d+)',sessionController.loginRequired,    quizC
 //comentarios
 router.get('/quizzes/:quizId(\\d+)/comments/new',sessionController.loginRequired,  commentController.new);
 router.post('/quizzes/:quizId(\\d+)/comments', sessionController.loginRequired, commentController.create);
+router.put('/quizzes/:quizId(\\d+)/comments/:commentId(\\d+)/accept', sessionController.loginRequired, commentController.accept);
 //gestion de usuarios
 router.get('/users',                  userController.index);
 router.get('/users/:userId(\\d+)',    userController.show);
