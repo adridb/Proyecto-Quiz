@@ -15,7 +15,17 @@ exports.load = function(req, res, next, quizId) {
         .catch(function(error) { next(error); });
 };
 
-
+exports.ownershipRequired = function(req,res,next){
+var isAdmin = req.session.user.isAdmin;
+var quizAuthorId = req.quiz.AuthorId;
+var loggedUserId = req.session.user.id;
+ if(isAdmin || quizAuthorId == loggedUserId){
+    next();
+ }else{
+    console.log('Operación prohibida: El usuario logeado no es el autor del quiz, ni el administrador');
+    res.send(403);
+ }
+};
 // GET /quizzes
 exports.index = function(req, res, next) {
 	 var search = (req.query.search !== undefined)? req.query.search : "";
@@ -52,7 +62,7 @@ exports.new = function(req,res,next){
 };
 // POST /quizzes/create
 exports.create = function(req,res,next){
-       var AuthorId = req.session.user && req.session.user.id || 0;
+       var authorId = req.session.user && req.session.user.id || 0;
 			var quiz = models.Quiz.build({question: req.body.quiz.question, answer: req.body.quiz.answer, AuthorId: authorId});
             quiz.save({fields:["question" , "answer","AuthorId"]})
             .then(function(quiz){

@@ -61,7 +61,7 @@ exports.create = function(req, res, next) {
             if (user) {
                 // Crear req.session.user y guardar campos id y username
                 // La sesión se define por la existencia de: req.session.user
-                req.session.user = {id:user.id, username:user.username};
+                req.session.user = {id:user.id, username:user.username, isAdmin: user.isAdmin};
 
                 res.redirect(redir); // redirección a redir
             } else {
@@ -82,4 +82,26 @@ exports.destroy = function(req, res, next) {
     delete req.session.user;
     
     res.redirect("/session"); // redirect a login
+};
+exports.adminOrMyselfRequired = function(req,res,next){
+var isAdmin = req.session.user.isAdmin;
+var userId = req.user.id;
+var loggedUserId = req.session.user.id;
+ if(isAdmin || userId == loggedUserId){
+    next();
+ }else{
+    console.log('Ruta prohibida: no es el usuario logeado, ni el administrador');
+    res.send(403);
+ }
+};
+exports.adminAndNotMyselfRequired = function(req,res,next){
+var isAdmin = req.session.user.isAdmin;
+var userId = req.user.id;
+var loggedUserId = req.session.user.id;
+ if(isAdmin || userId !== loggedUserId){
+    next();
+ }else{
+    console.log('Ruta prohibida: no es el usuario logeado, ni el administrador');
+    res.send(403);
+ }
 };
