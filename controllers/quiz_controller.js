@@ -33,13 +33,17 @@ var loggedUserId = req.session.user.id;
 };
 // GET /quizzes
 exports.index = function(req, res, next) {
+     var format = req.params.format || "html";
 	 var search = (req.query.search !== undefined)? req.query.search : "";
      if(search === undefined || search === ""){
 models.Quiz.findAll({include: [models.Attachment]})
         .then(function(quizzes) {
 
-            res.render('quizzes/index.ejs', { quizzes: quizzes,
-                                            });
+            if (format==="json"){
+         res.json({ quizzes: quizzes});
+       }else{
+         res.render('quizzes/index.ejs', { quizzes: quizzes});
+      }
         }).catch(function(error) {next(error);});
 
      }else{
@@ -57,7 +61,12 @@ models.Quiz.findAll({where: {question: {$like: "%"+search+"%"}}})
 // GET /quizzes/:id
 exports.show = function(req,res,next){
 			var answer = req.query.answer || '';
-            res.render('quizzes/show',{quiz:req.quiz, answer:answer});
+            var format = req.params.format || "html";
+   if (format==="json"){
+   res.json({quiz: req.quiz, answer: answer});
+  }else{
+     res.render('quizzes/show', {quiz: req.quiz, answer: answer});
+  }
 			
 };
 // GET /quizzes/id:/check

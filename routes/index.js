@@ -21,6 +21,9 @@ router.get('/quizzes/:quizId(\\d+)',    quizController.show);
 router.get('/quizzes/:quizId(\\d+)/check',quizController.check);
 router.get('/quizzes/new', sessionController.loginRequired,quizController.new);
 router.post('/quizzes',  sessionController.loginRequired,upload.single('image'), quizController.create);
+//json
+router.get('/quizzes.:format?',                     	quizController.index);
+router.get('/quizzes/:quizId(\\d+).:format?',       	quizController.show);
 // Edicion de preguntas
 router.get('/quizzes/:quizId(\\d+)/edit',sessionController.loginRequired,quizController.ownershipRequired,quizController.edit);
 router.put('/quizzes/:quizId(\\d+)',   sessionController.loginRequired,quizController.ownershipRequired,upload.single('image'),quizController.update);
