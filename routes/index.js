@@ -16,24 +16,24 @@ router.param("userId", userController.load);
 router.get('/quizzes',                  quizController.index);
 router.get('/quizzes/:quizId(\\d+)',    quizController.show);
 router.get('/quizzes/:quizId(\\d+)/check',quizController.check);
-router.get('/quizzes/new',                  quizController.new);
-router.post('/quizzes',                  quizController.create);
+router.get('/quizzes/new', sessionController.loginRequired,quizController.new);
+router.post('/quizzes',  sessionController.loginRequired, quizController.create);
 // Edicion de preguntas
-router.get('/quizzes/:quizId(\\d+)/edit',quizController.edit);
-router.put('/quizzes/:quizId(\\d+)',    quizController.update);
+router.get('/quizzes/:quizId(\\d+)/edit',sessionController.loginRequired,quizController.edit);
+router.put('/quizzes/:quizId(\\d+)',   sessionController.loginRequired, quizController.update);
 //borrado
-router.delete('/quizzes/:quizId(\\d+)',    quizController.destroy);
+router.delete('/quizzes/:quizId(\\d+)',sessionController.loginRequired,    quizController.destroy);
 //comentarios
-router.get('/quizzes/:quizId(\\d+)/comments/new',  commentController.new);
-router.post('/quizzes/:quizId(\\d+)/comments',     commentController.create);
+router.get('/quizzes/:quizId(\\d+)/comments/new',sessionController.loginRequired,  commentController.new);
+router.post('/quizzes/:quizId(\\d+)/comments', sessionController.loginRequired, commentController.create);
 //gestion de usuarios
 router.get('/users',                  userController.index);
 router.get('/users/:userId(\\d+)',    userController.show);
 router.get('/users/new',                  userController.new);
 router.post('/users',                  userController.create);
-router.get('/users/:userId(\\d+)/edit',userController.edit);
-router.put('/users/:userId(\\d+)',    userController.update);
-router.delete('/users/:userId(\\d+)',    userController.destroy);
+router.get('/users/:userId(\\d+)/edit',sessionController.loginRequired, userController.edit);
+router.put('/users/:userId(\\d+)',   sessionController.loginRequired, userController.update);
+router.delete('/users/:userId(\\d+)',sessionController.loginRequired,    userController.destroy);
 //sesion
 
 router.get('/session',                  sessionController.new);
