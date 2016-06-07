@@ -52,8 +52,9 @@ exports.new = function(req,res,next){
 };
 // POST /quizzes/create
 exports.create = function(req,res,next){
-			var quiz = models.Quiz.build({question: req.body.quiz.question, answer: req.body.quiz.answer});
-            quiz.save({fields:["question" , "answer"]})
+       var AuthorId = req.session.user && req.session.user.id || 0;
+			var quiz = models.Quiz.build({question: req.body.quiz.question, answer: req.body.quiz.answer, AuthorId: authorId});
+            quiz.save({fields:["question" , "answer","AuthorId"]})
             .then(function(quiz){
             	req.flash('success',"Pregunta guardada con éxito");
             	res.redirect("/quizzes");
