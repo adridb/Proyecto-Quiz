@@ -49,7 +49,7 @@ models.Quiz.findAll({include: [models.Attachment]})
 
      }else{
 	
-models.Quiz.findAll({where: {question: {$like: "%"+search+"%"}}})
+models.Quiz.findAll({where: {question: {$like: "%"+search+"%"}},include: [models.Attachment]})
 		.then(function(quizzes) {
 
 			res.render('quizzes/index.ejs', { quizzes: quizzes,
