@@ -7,7 +7,11 @@ return sequelize.define('Comment',
 	                      	validate: {notEmpty: {msg: "Falta Comentario"}}
                                      },
                                      accepted: {type: DataTypes.BOOLEAN,
-                                     	defaultValue: false}
+                                     	defaultValue: false
+                                     	},
+                          AuthorId: { type: DataTypes.INTEGER,
+ 		          
+  					                 }
 	                      
 	                      });
 

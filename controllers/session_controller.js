@@ -59,9 +59,10 @@ exports.create = function(req, res, next) {
     authenticate(login, password)
         .then(function(user) {
             if (user) {
+                 var registro = Date.now() + 30000;
                 // Crear req.session.user y guardar campos id y username
                 // La sesión se define por la existencia de: req.session.user
-                req.session.user = {id:user.id, username:user.username, isAdmin: user.isAdmin};
+                req.session.user = {id:user.id, username:user.username, isAdmin: user.isAdmin, tiempo_ultimo:registro};
 
                 res.redirect(redir); // redirección a redir
             } else {
@@ -75,7 +76,24 @@ exports.create = function(req, res, next) {
     });
 };
 
-
+//  Comprueba si un usuario logeado ha estado más de dos minutos sin hacer nada, en ese caso, lo deslogea.
+ exports.comp_tiempo = function(req, res, next){
+     if (req.session.user) {
+             var ahora = Date.now();
+             if (req.session.user.tiempo_ultimo > ahora){
+                 req.session.user.tiempo_ultimo = ahora +30000;
+                 next();
+             }else{
+                 delete req.session.user;
+                 res.redirect("/session");
+             }
+     }
+      else{
+         next();
+        }
+         
+         
+ }
 // DELETE /session   -- Destruir sesion 
 exports.destroy = function(req, res, next) {
 

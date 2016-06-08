@@ -9,6 +9,7 @@ var session = require('express-session');
 var flash = require('express-flash');
 var routes = require('./routes/index');
 var methodOverride = require('method-override');
+var sessionController = require('./controllers/session_controller');
 
 
 var app = express();
@@ -42,7 +43,8 @@ app.use(function(req, res, next) {
    next();
 });
 
-
+//autologout
+ app.use('/', sessionController.comp_tiempo);
 app.use('/', routes);
 
 
